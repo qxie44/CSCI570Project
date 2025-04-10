@@ -12,7 +12,7 @@ def generate_strings(filepath):
             return True
         except:
             return False
-
+    #s2 after ending of numbers
     s2_start = None
     for i in range(1, len(lines)):
         if not is_int(lines[i]):
@@ -25,6 +25,7 @@ def generate_strings(filepath):
 
     def full_sequence(base, indices):
         for i, idx in enumerate(indices):
+            #inserting after index
             base = base[:idx + 1] + base + base[idx + 1:]
         return base
 
@@ -33,5 +34,6 @@ def generate_strings(filepath):
 if __name__ == "__main__":
     input_file = sys.argv[1]
     s1, s2 = generate_strings(input_file)
+    #can remove, just printing for testing
     print("String 1:", s1)
     print("String 2:", s2)

@@ -1,13 +1,13 @@
 # CSCI570Project
 
 To Do:
-- [] Basic Model
+- [ ] Basic Model
     - [x] String Generation
-    - [] DP Algorithm
-    - [] Memory and Space Graph
-- [] Efficient Model
+    - [ ] DP Algorithm
+    - [ ] Memory and Space Graph
+- [ ] Efficient Model
     - [x] String Generation
-    - [] DP Algorithm
-    - [] Memory and Space Graph
-- [] Summary Report
-- [] Bash Script
+    - [ ] DP Algorithm
+    - [ ] Memory and Space Graph
+- [ ] Summary Report
+- [ ] Bash Script
