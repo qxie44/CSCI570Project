@@ -2,11 +2,11 @@
 
 To Do:
 - [] Basic Model
-    - [] Parsing
+    - [x] String Generation
     - [] DP Algorithm
     - [] Memory and Space Graph
 - [] Efficient Model
-    - [] Parsing
+    - [x] String Generation
     - [] DP Algorithm
     - [] Memory and Space Graph
 - [] Summary Report
