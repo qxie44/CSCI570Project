@@ -26,7 +26,7 @@ def basic(str1,str2,delta,alpha):
 
     opt = [[0] * len_str2 for _ in range(len_str1)]
 
-    #Initial base cases
+    #Initialize base cases
     for i in range(len_str1):
         opt[i][0] = i * delta
     for i in range(len_str2):
