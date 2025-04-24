@@ -4,7 +4,7 @@ import time
 import psutil
 import sys
 
-from generate import generate_strings
+from BasicModel import generate_strings
 
 def basic(str1,str2,delta,alpha):
     """
