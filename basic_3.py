@@ -75,7 +75,7 @@ def basic(str1,str2,delta,alpha):
 def seq_align_basic(str1,str2,delta,alpha):
 
     start_time = time.time()
-    opt_str1,opt_str2,cost_of_align = basic(string_1, string_2, delta, alpha)
+    opt_str1,opt_str2,cost_of_align = basic(str1, str2, delta, alpha)
     end_time = time.time()
     total_time = (end_time - start_time) * 1000
     return opt_str1, opt_str2, cost_of_align, total_time
