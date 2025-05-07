@@ -1,12 +1,11 @@
 import time
 import psutil
-from BasicModel import generate_strings
 from basic_3 import seq_align_basic, process_memory  
 
 # Values of M + N 
 total_lengths = [16, 64, 128, 256, 384, 512, 768, 1024, 1280, 1536, 2048, 2560, 3072, 3584, 3968]
 
-# Alignment parameters based off of basic3 data
+# Alignment parameters
 delta = 30
 alpha = {"A": {"A": 0, "C": 110, "G": 48, "T": 94},
          "C": {"A": 110, "C": 0, "G": 118, "T": 48},
