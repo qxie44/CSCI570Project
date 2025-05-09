@@ -32,6 +32,9 @@ def row_cost(x,y):
     return prev
 
 def efficient_alignment(x, y):
+    ##debug help:
+    print(f"Aligning x({len(x)}) vs y({len(y)})")
+
     #x empty, align y with gap
     if len(x ) == 0:
         return "_" * len(y), y
@@ -42,30 +45,40 @@ def efficient_alignment(x, y):
     if len(x) == 1 or len(y) == 1:
         aligned_x, aligned_y, _ = basic(x, y, delta, alpha)
         #already flipped once in basic
-        return aligned_x[::-1], aligned_y[::-1]
+        return aligned_x, aligned_y
     
     #split x
     xsplit = len(x) // 2
 
     #alginment costs
-    scoreLeft = row_cost(x[:xsplit], y)
-    scoreRight = row_cost(x[xsplit:][::-1], y[::-1])
-    
+    costLeft = row_cost(x[:xsplit], y)
+    costRight = row_cost(x[xsplit:][::-1], y[::-1])
+
     #minimize cost
     min_score = float('inf')
     ymid = 0
     for i in range(len(y)+ 1):
-        total = scoreLeft[i] + scoreRight[len(y) - i]
+        total = costLeft[i] + costRight[len(y) - i]
         if total < min_score:
             min_score = total
             ymid = i
+    ##test
+    print(f"Split x at {xsplit}, y at {ymid}, cost = {min_score}")
+
     #recursion
     leftA, leftB = efficient_alignment(x[:xsplit], y[:ymid])
     rightA, rightB = efficient_alignment(x[xsplit:], y[ymid:])
 
-    return leftA + rightA, leftB + rightB
+    resultA = leftA + rightA
+    resultB = leftB + rightB
+    #needs to be the same length
+    assert len(resultA) == len(resultB), (
+    f" Misaligned result: len(x) = {len(resultA)}, len(y) = {len(resultB)}"
+)
 
+    return resultA, resultB
 
+    
 #Time wrapper
 def seq_align_efficient(str1,str2):
 
@@ -77,6 +90,11 @@ def seq_align_efficient(str1,str2):
         for a, b in zip(opt_str1, opt_str2)
     )
     total_time = (end_time - start_time) * 1000
+    print("Final Aligned Result:")
+    print(opt_str1)
+    print(opt_str2)
+    print("Alignment Cost:", cost_of_align)
+
     return opt_str1, opt_str2, cost_of_align, total_time
 
 #Memory taken
@@ -104,9 +122,8 @@ def write_output(path,opt_sol,memory_required):
             file.write(f'\n{str(opt_sol[3])}')
             file.write(f'\n{str(memory_required)}')
 
+
 if __name__ == '__main__':
-
-
 
     input_path = sys.argv[1]
     output_path = sys.argv[2]
