@@ -23,21 +23,11 @@ def efficient_alignment(x, y):
         inside = [0] * (n + 1)
         dp.append(inside)
 
-    # store result to get to min cost
-    backtracking =[]
-    for row in range( m + 1):
-        inside = []
-        for col in range(n + 1):
-            inside.append(None)
-        backtracking.append(inside)
-
     #base cases
     for i in range( 1, m + 1):
         dp[i][0] = i * delta
-        backtracking[i][0] = 'gapy' #came from above, fill gap in y
     for j in range( 1 , n + 1):
         dp[0][j] = j * delta
-        backtracking[0][j] = 'gapx' #from left, fill gap in x
 
     #fill the table 
     for i in range(1, m + 1):
@@ -46,27 +36,22 @@ def efficient_alignment(x, y):
             dp[i][j] = min( dp[i-1][j-1] + alpha[x[i-1]][y[j-1]], #match/mismatch
                             dp[i-1][j] + delta, #gapx
                             dp[i][j-1] + delta) #gapy
-            if dp[i][j] == (dp[i-1][j-1] + alpha[x[i-1]][y[j-1]]):
-                backtracking[i][j] = 'match' #is aligned
-            elif dp[i][j] == (dp[i-1][j] + delta):
-                backtracking[i][j] = 'gapy' #gap in y
-            else:
-                backtracking[i][j] = 'gapx' #gap in x
+    
     alignedx, alignedy = [], []
     i, j = m,n
 
 
     while i>0 or j >0:
-        if backtracking[i][j] == 'match':
+        if i >0 and j >0 and dp[i][j] == dp[i-1][j-1] + alpha[x[i-1]][y[j-1]]: #substitute char
             alignedx.append(x[i-1])
             alignedy.append(y[j-1])
             i-= 1
             j -= 1
-        elif backtracking[i][j] == 'gapy':
+        elif i > 0 and dp[i][j] == dp[i-1][j] + delta: #move up
             alignedx.append(x[i-1])
             alignedy.append('_')
             i-=1
-        else:
+        else: #move left
             alignedx.append('_')
             alignedy.append(y[j-1])
             j-= 1
@@ -85,10 +70,10 @@ def seq_align_efficient(str1,str2):
     end_time = time.time()
 
     total_time = (end_time - start_time) * 1000
-    print("Final Aligned Result:")
-    print(opt_str1)
-    print(opt_str2)
-    print("Alignment Cost:", cost)
+    #print("Final Aligned Result:")
+    #print(opt_str1)
+    #print(opt_str2)
+    #print("Alignment Cost:", cost)
 
     return opt_str1, opt_str2, cost, total_time
 
